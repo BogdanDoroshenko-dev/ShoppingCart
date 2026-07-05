@@ -5,6 +5,7 @@ const Catalog=()=>{
   const [products, setProducts]=useState([]);
   const [quantities, setQuantities]=useState({});
 
+  const { addToCart } = useCart()
 
   useEffect(()=>{
     const fetchProducts=async()=>{
@@ -17,6 +18,16 @@ const Catalog=()=>{
 
 
 ,[])
+
+const handleAddToCart=(product)=>{
+addToCart({
+id:product.id,
+title:product.title,
+price:product.price,
+image:product.image,
+quantity:quantities[product.id]||1
+})
+}
 
   const increment = (id) => {
     setQuantities(prev=>({...prev,[id]:(prev[id]||1) + 1}))
@@ -47,7 +58,7 @@ return(<>
     </div>
 
 
-<button>Add to cart</button>
+<button onClick={()=>handleAddToCart(product)}>Add to cart</button>
 </div>
 ))
 }
