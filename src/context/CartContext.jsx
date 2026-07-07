@@ -7,7 +7,7 @@ const [cart,setCart]=useState([]);
 
 const addToCart=(product)=>{
     setCart(prev=>{
-        console.log('Cart updated:', prev)
+       
         const exists=prev.find(item=>item.id===product.id)
 
         if(exists){

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import {useCart} from  '../context/CartContext.jsx'
-
+import './Catalog.css'
 const Catalog=()=>{
   const [products, setProducts]=useState([]);
   const [quantities, setQuantities]=useState({});
@@ -37,32 +37,37 @@ quantity:quantities[product.id]||1
     setQuantities(prev => ({ ...prev, [id]: Math.max(1, (prev[id] || 1) - 1) }))
   }
 
-return(<>
-{products.map(product=>(
-<div key={product.id}>
-<img src={product.image} alt= {product.title} />
-<h3>{product.title}</h3>
-<p>{product.price}</p>
+return (
+    <div className="catalog">
+        <h1>Catalog</h1>
+        <div className="products-grid">
+            {products.map(product => (
+                <div key={product.id} className="product-card">
+                    <img src={product.image} alt={product.title} />
+                    <h3>{product.title}</h3>
+                    <p className="price">${product.price}</p>
 
-    <div>
-        <button onClick={() => decrement(product.id)}>-</button>
-        <input 
-            type="number"
-            value={quantities[product.id] || 1}
-            onChange={e => setQuantities(prev => ({ 
-                ...prev, 
-                [product.id]: Math.max(1, parseInt(e.target.value) || 1) 
-            }))}
-        />
-        <button onClick={() => increment(product.id)}>+</button>
+                    <div className="quantity-controls">
+                        <button className="glass-btn" onClick={() => decrement(product.id)}>-</button>
+                        <input
+                            type="number"
+                            value={quantities[product.id] || 1}
+                            onChange={e => setQuantities(prev => ({
+                                ...prev,
+                                [product.id]: Math.max(1, parseInt(e.target.value) || 1)
+                            }))}
+                        />
+                        <button className="glass-btn" onClick={() => increment(product.id)}>+</button>
+                    </div>
+
+                    <button className="glass-btn primary" onClick={() => handleAddToCart(product)}>
+                        Add to Cart
+                    </button>
+                </div>
+            ))}
+        </div>
     </div>
-
-
-<button onClick={()=>handleAddToCart(product)}>Add to cart</button>
-</div>
-))
-}
-  </>)
+)
 
 }
 export default Catalog
