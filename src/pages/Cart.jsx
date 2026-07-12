@@ -9,7 +9,7 @@ const Cart = () => {
         return (
             <div className="cart">
                 <h1>Your Cart</h1>
-                <p className="cart-empty">Your cart is empty — go find something you like!</p>
+                <p className="cart-empty">Your cart is empty - go find something you like!</p>
             </div>
         )
     }
